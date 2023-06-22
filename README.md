@@ -20,14 +20,15 @@ docker-compose build api
 docker-compose up api
 ```
 
-sample api call: 
+sample api call:
 
 ```
-{
+curl --location --request GET 'http://0.0.0.0:8080/taxcalculator' \
+--header 'Content-Type: application/json' \
+--data-raw '{
     "year": "2020",
     "income": "85000"
-}
+}'
 ```
-
 
 NOTE: when prompted for the year, pick the first year in the split, ie. the 2022-2023 financial year would be listed as 2022
