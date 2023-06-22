@@ -37,7 +37,7 @@ def calculateTax(dfTaxTable, income):
 def calculator(request):
     response = {}
     dfTaxTable = loadTaxTable(request.year)
-    taxPayable = calculateTax(dfTaxTable, request.income)
+    taxPayable = calculateTax(dfTaxTable, int(request.income))
     response["taxPayable"] = np.rint(taxPayable)
     return response
 

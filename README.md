@@ -10,11 +10,10 @@ Command line:
 
     ``docker-compose build commandLine``
 
-    ``docker-compose run --rm commandLine``
-
+    ``docker-compose run commandLine``
 
 API:
 
     ``docker-compose build api``
 
-    ``docker-compose run --rm api``
+    ``docker-compose up api``
