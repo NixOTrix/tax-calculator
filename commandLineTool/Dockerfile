@@ -7,7 +7,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./taxTables ./taxTables
 
-RUN pip3 install --no-cache-dir  pandas openpyxl numpy
+RUN pip3 install --no-cache-dir pandas openpyxl numpy
 
 COPY ./commandLineTool ./
 

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./commandLineTool/Dockerfile
-    image: tax_calculator
+    image: tax_calculator_command_line
     stdin_open: true
     tty: true
 
@@ -13,3 +13,6 @@ services:
     build:
       context: .
       dockerfile: ./apiTool/Dockerfile
+    image: tax_calculator_api
+    stdin_open: true
+    tty: true

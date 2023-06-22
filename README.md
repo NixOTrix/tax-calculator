@@ -4,8 +4,17 @@ This was a coding challenge and an attempt at a flex, not necesseeraily a good p
 
 I used this site as a refrence for the threshold tables https://www.superguide.com.au/how-super-works/income-tax-rates-brackets
 
+To use the tool please run:
+
+Command line:
+
+    ``docker-compose build commandLine``
+
+    ``docker-compose run --rm commandLine``
 
 
-To use the tool, please navigate to the folder with your desired tool (command line, api, front end) and run:
+API:
 
-``sudo docker build -t tax_calculator --rm . && sudo docker run -it --name tax_calculator --rm tax_calculator``
+    ``docker-compose build api``
+
+    ``docker-compose run --rm api``
