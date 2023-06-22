@@ -1,5 +1,5 @@
 import pandas as pd
-
+import datetime
 # TAX CALCULATOR
 
 
@@ -21,17 +21,17 @@ def loadTaxTable(taxType, income, year):
 def getUserParameters():
     userParams = {}
 
+    currentDate = datetime.date.today()
+    currentYear = int(currentDate.strftime("%Y"))
     while True:
-        print("Please insert your tax type: \n (1) non-taxfree-threshold \n (2) taxfree-threshold \n")
         try:
-            userParams['taxType'] = int(input('Please insert a valid integer input between 1 and 6'))
-            if userParams['taxType'] > 0 and userParams['taxType'] < 7:
-                break
+            userParams['year'] = int(input('Please type your tax year (yyyy): '))
+            if userParams['year'] >= 2019 and userParams['year'] <= currentYear:
+                break          
             else:
-                raise Exception                
+                raise Exception
         except:
-            print("That's not a valid option!")
-
+            print("Please choose a year after 2019")
 
     while True:
         try:
@@ -42,16 +42,22 @@ def getUserParameters():
 
     return userParams
     
-def calculateTax(dfTaxRow, income):
-    # formula : y = a * income - b
-    a = dfTaxRow["Component A Factor"].values[0]
-    b = dfTaxRow["Component B Factor"].values[0]
-    return a*income - b
+def calculateTax(dfTaxTable, income):
+    taxPayable = 0
+
+    
+
+    return taxPayable
+#     # formula : y = a * income - b
+#     a = dfTaxRow["Component A Factor"].values[0]
+#     b = dfTaxRow["Component B Factor"].values[0]
+#     return a*income - b
 
 def main():
     userParams = getUserParameters()
-    dfTaxRow = loadTaxTable(userParams['taxType'], userParams['income'], userParams['year'])
-    taxPayable = calculateTax(dfTaxRow, userParams['income'])
+    dfTaxTable = loadTaxTable(userParams['taxType'], userParams['income'], userParams['year'])
+    taxPayable = calculateTax(dfTaxTable, userParams['income'])
+    print("Your tax payble is: $" + taxPayable)
 
 
 if __name__ == '__main__':
