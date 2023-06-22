@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  
+  commandLine:
+    build:
+      context: .
+      dockerfile: ./commandLineTool/Dockerfile
+    image: tax_calculator
+    stdin_open: true
+    tty: true
+
+  api:
+    build:
+      context: .
+      dockerfile: ./apiTool/Dockerfile

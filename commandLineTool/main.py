@@ -4,7 +4,7 @@ import datetime
 # TAX CALCULATOR
 
 def loadTaxTable(year):
-    df = pd.read_excel("taxTables/"+str(year)+".xlsx")
+    df = pd.read_excel("./taxTables/"+str(year)+".xlsx")
     return df
 
 def getUserParameters():
