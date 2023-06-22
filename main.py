@@ -51,7 +51,7 @@ def main():
     userParams = getUserParameters()
     dfTaxTable = loadTaxTable(userParams['year'])
     taxPayable = calculateTax(dfTaxTable, userParams['income'])
-    print("Your tax payble is: ${:.2f}".format(np.rint(taxPayable)))
+    print("Your tax payble is: ${:,.2f}".format(np.rint(taxPayable)))
 
 
 if __name__ == '__main__':
