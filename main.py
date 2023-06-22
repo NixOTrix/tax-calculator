@@ -10,12 +10,12 @@ import pandas as pd
 # taxable income
 # 1st attempt to just have the table there
 
-def loadTaxTable(taxType):
+def loadTaxTable(taxType, income, year):
     #Tax Scale	Weekly Earnings Less Than	Component A Factor	Component B Factor
-    df = pd.read_excel(r"taxTables/2023.xlsx", sheet_name="STSL Statement of Formula - CSV")
+    df = pd.read_excel("taxTables/"+year+".xlsx", sheet_name="STSL Statement of Formula - CSV")
     grouped = df.groupby("Tax Scale")
-    return grouped.get_group(taxType)
-
+    dfTaxGroup = grouped.get_group(taxType)
+    return dfTaxGroup.iloc[(dfTaxGroup['Weekly Earnings Less Than']-income).abs().argsort()[:1]]
 
 
 def getUserParameters():
@@ -42,10 +42,16 @@ def getUserParameters():
 
     return userParams
     
+def calculateTax(dfTaxRow, income):
+    # formula : y = a * income - b
+    a = dfTaxRow["Component A Factor"].values[0]
+    b = dfTaxRow["Component B Factor"].values[0]
+    return a*income - b
+
 def main():
     userParams = getUserParameters()
-    taxTable = loadTaxTable(userParams['taxType'])
-
+    dfTaxRow = loadTaxTable(userParams['taxType'], userParams['income'], userParams['year'])
+    taxPayable = calculateTax(dfTaxRow, userParams['income'])
 
 
 if __name__ == '__main__':
