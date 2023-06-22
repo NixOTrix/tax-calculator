@@ -1,22 +1,11 @@
 import pandas as pd
+import numpy as np
 import datetime
 # TAX CALCULATOR
 
-
-
-
-# we need the tax year
-
-# taxable income
-# 1st attempt to just have the table there
-
-def loadTaxTable(taxType, income, year):
-    #Tax Scale	Weekly Earnings Less Than	Component A Factor	Component B Factor
-    df = pd.read_excel("taxTables/"+year+".xlsx", sheet_name="STSL Statement of Formula - CSV")
-    grouped = df.groupby("Tax Scale")
-    dfTaxGroup = grouped.get_group(taxType)
-    return dfTaxGroup.iloc[(dfTaxGroup['Weekly Earnings Less Than']-income).abs().argsort()[:1]]
-
+def loadTaxTable(year):
+    df = pd.read_excel("taxTables/"+str(year)+".xlsx")
+    return df
 
 def getUserParameters():
     userParams = {}
@@ -43,21 +32,26 @@ def getUserParameters():
     return userParams
     
 def calculateTax(dfTaxTable, income):
-    taxPayable = 0
+    thresholdLimits = dfTaxTable.iloc[(dfTaxTable['income']-income).abs().argsort()[:2]]
 
-    
-
-    return taxPayable
-#     # formula : y = a * income - b
-#     a = dfTaxRow["Component A Factor"].values[0]
-#     b = dfTaxRow["Component B Factor"].values[0]
-#     return a*income - b
+    # Funky code to determine the threshold to use, eg threshold of 120k and 50k, and income of 90k
+    # the limits will return the 120k as closer to 90k but we still want to use the 50k for our calculations
+    if thresholdLimits.iloc[0][0] > income:
+        base = thresholdLimits.iloc[1][2]
+        rate = thresholdLimits.iloc[1][1]
+        threshold = thresholdLimits.iloc[1][0]
+        return base + ((income - threshold) * rate)
+    else:
+        base = thresholdLimits.iloc[0][2]
+        rate = thresholdLimits.iloc[0][1]
+        threshold = thresholdLimits.iloc[0][0]
+        return base + ((income - threshold) * rate)
 
 def main():
     userParams = getUserParameters()
-    dfTaxTable = loadTaxTable(userParams['taxType'], userParams['income'], userParams['year'])
+    dfTaxTable = loadTaxTable(userParams['year'])
     taxPayable = calculateTax(dfTaxTable, userParams['income'])
-    print("Your tax payble is: $" + taxPayable)
+    print("Your tax payble is: ${:.2f}".format(np.rint(taxPayable)))
 
 
 if __name__ == '__main__':
