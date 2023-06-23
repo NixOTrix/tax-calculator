@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
+import { useNavigate } from 'react-router-dom';
 
-  
-const routeChange = () =>{ 
-  let path = `newPath`; 
-}
 
 function App() {
-
+  const navigate = useNavigate();
+  
+  const routeChange = () =>{ 
+    navigate("/Calculator"); 
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
