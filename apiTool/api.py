@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
@@ -11,6 +12,21 @@ class Request(BaseModel):
     income: str
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # These files are small and don't take much to read/keep in memory. 
 # We could do a preprocess and hold them in memory for quicker access.
@@ -45,6 +61,6 @@ def calculator(request):
 async def root():
     return {"message": "Hello World"}
 
-@app.get("/taxcalculator")
+@app.post("/taxcalculator")
 async def predict_sentiment(request: Request):
     return JSONResponse(calculator(request))

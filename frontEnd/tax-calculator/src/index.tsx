@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import Calculator from './Calculator'
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
