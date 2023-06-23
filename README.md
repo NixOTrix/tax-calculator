@@ -23,7 +23,7 @@ docker-compose up api
 sample api call:
 
 ```
-curl --location --request GET 'http://0.0.0.0:8080/taxcalculator' \
+curl --location --request POST 'http://0.0.0.0:8080/taxcalculator' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "year": "2020",
