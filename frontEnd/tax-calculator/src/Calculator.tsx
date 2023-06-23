@@ -53,7 +53,7 @@ function Calculator() {
         <button onClick={handleClick}>
           CALCULATE YOUR TAX NOW WOOOOOO
         </button>
-        {tax && <p>YOUR TAX PAYABLE IS: {tax}</p>}
+        {tax && <p>YOUR TAX PAYABLE IS: ${tax.toFixed(2)}</p>}
       </header>
     </div>
   );
