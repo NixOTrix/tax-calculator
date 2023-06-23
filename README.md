@@ -33,4 +33,9 @@ curl --location --request GET 'http://0.0.0.0:8080/taxcalculator' \
 
 NOTE: when prompted for the year, pick the first year in the split, ie. the 2022-2023 financial year would be listed as 2022
 
-FRONTEND WIP
+To run the front-end you will also need to run the api, luckily you can do so with these easy commands
+
+```
+docker-compose build frontend api
+docker-compose up -d frontEnd api
+```

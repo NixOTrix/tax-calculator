@@ -1,13 +1,11 @@
-FROM node:12.2.0-alpine as build
+FROM node:18 as build
 ENV PATH /app/node_modules/.bin:$PATH
+
+RUN mkdir /app
 WORKDIR /app
-COPY ./start.sh . 
-# copy the build folder to here
-
+COPY ./tax-calculator ./
+RUN npm install
 RUN npm install -g serve
-ENTRYPOINT [ "start.sh" ]
-# RUN npm install
-# RUN npm run build
-
-
+RUN npm run build
+CMD cd build && serve
 

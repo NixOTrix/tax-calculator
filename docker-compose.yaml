@@ -20,9 +20,9 @@ services:
     tty: true
 
   frontEnd:
-  # go to directory run npm build 
     build:
-      dockerfile: ./frontEnd/Dockerfile
+      context: ./frontEnd
+      dockerfile: ./Dockerfile
     ports:
       - 3000:3000
     image: tax_calculator_front_end
